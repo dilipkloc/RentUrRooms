@@ -4,6 +4,9 @@
 
 <p id="notice"><%= notice %></p>
 
+<%= image_tag(@room.images.url, style: 'height:250px;max-width 200px;width:100%;') if @room.images %><br/>
+
+
 <p>
   <strong>Name:</strong>
   <%= @room.name %>
@@ -35,18 +38,8 @@
 </p>
 
 <p>
-  <strong>Latitude:</strong>
-  <%= @room.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
-</p>
-
-<p>
   <strong>City:</strong>
-  <%= @room.city_id %>
+  <%= City.find(@room.city_id).name %>
 </p>
 
 <p>

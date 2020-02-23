@@ -30,6 +30,8 @@ class RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
+    # binding.pry
+    @room.images = params['room']['images']
     @results = Geocoder.search(@room.address+', '+City.find(@room.city_id).name);
     
     @room.latitude = @results.first.coordinates.first;
@@ -79,6 +81,6 @@ class RoomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def room_params
-      params.require(:room).permit(:name, :description, :price, :rules, :address, :images, :latitude, :longitude, :city_id, :user_id)
+      params.require(:room).permit(:name, :description, :price, :rules, :address, :latitude, :longitude, :city_id, :user_id)
     end
 end

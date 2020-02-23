@@ -1,4 +1,5 @@
 class Room < ApplicationRecord
-  geocoded_by :address 
+  mount_uploader :images, CoverUploaderUploader
+  geocoded_by :address
   after_validation :geocode, if: :address_changed?
 end
