@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :amenity_rooms
   resources :amenities
   resources :roles
   resources :permissions

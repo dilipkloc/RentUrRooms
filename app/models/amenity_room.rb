@@ -1,0 +1,2 @@
+class AmenityRoom < ApplicationRecord
+end
