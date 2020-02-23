@@ -42,18 +42,10 @@
   </div>
 
   <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude %>
-  </div>
-
-  <div class="field">
     <%= form.label :city_id %>
-    <%= form.number_field :city_id %>
+    <%= form.collection_select :city_id, City.all, :id, :name, prompt: "Select City" %><span id="cityError"></span><br/><br/>
+
+    <%#= form.number_field :city_id %>
   </div>
 
   <div class="field">

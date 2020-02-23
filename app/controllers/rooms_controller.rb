@@ -15,6 +15,10 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    # @hash = Gmaps4rails.build_markers(@room) do |user, marker|
+    #   marker.lat user.latitude
+    #   marker.lng user.longitude
+    # end
   end
 
   # GET /rooms/1/edit
@@ -25,7 +29,12 @@ class RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
+    @results = Geocoder.search(@room.address+', '+City.find(@room.city_id).name);
+    
+    @room.latitude = @results.first.coordinates.first;
+    @room.longitude = @results.first.coordinates.last;
 
+    binding.pry
     respond_to do |format|
       if @room.save
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
