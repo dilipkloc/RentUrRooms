@@ -10,15 +10,16 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    @hash = Gmaps4rails.build_markers(@room) do |user, marker|
+      marker.lat user.latitude
+      marker.lng user.longitude
+    end
+    binding.pry
   end
 
   # GET /rooms/new
   def new
     @room = Room.new
-    # @hash = Gmaps4rails.build_markers(@room) do |user, marker|
-    #   marker.lat user.latitude
-    #   marker.lng user.longitude
-    # end
   end
 
   # GET /rooms/1/edit
