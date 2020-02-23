@@ -4,8 +4,13 @@ Rails.application.routes.draw do
   resources :amenities
   resources :roles
   resources :permissions
-  devise_for :users
+  #devise_for :users
   resources :rooms
+
+  get '/errors', to: 'errors#index'
+
+  devise_for :users,
+             :controllers => {:registrations => "my_devise/registrations"}
   
   root 'rooms#index'
 end
