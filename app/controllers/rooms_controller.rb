@@ -14,7 +14,6 @@ class RoomsController < ApplicationController
       marker.lat user.latitude
       marker.lng user.longitude
     end
-    binding.pry
   end
 
   # GET /rooms/new
@@ -30,14 +29,14 @@ class RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
-    # binding.pry
     @room.images = params['room']['images']
     @results = Geocoder.search(@room.address+', '+City.find(@room.city_id).name);
     
     @room.latitude = @results.first.coordinates.first;
     @room.longitude = @results.first.coordinates.last;
 
-    binding.pry
+    @room.user_id = current_user.id
+
     respond_to do |format|
       if @room.save
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
