@@ -1,23 +1,10 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
   def create
     super
+    resource.role_id = Role.find_by(name: 'guest').id
+    binding.pry
     if resource.save
-      @user = User.find(resource.id)
-      @user.role_id = Role.find_by(name: 'guest').id
-      if @user.save
-        rooms_path
-      else
-        errors_path
-      end
-      # @permission = Permission.new
-      # @permission.user_id = resource.id
-      # @permission.role_id = Role.find_by(name: 'guest').id
-      # if @permission.save
-      #   rooms_path
-      # else
-      #   errors_path
-      # end
-
+      rooms_path
     else
       errors_path
     end
