@@ -39,10 +39,25 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
-        format.json { render :show, status: :created, location: @room }
+
+        if User.find(current_user.id).role_id != Role.find_by(name: 'host').id
+
+          @user = User.find(current_user.id)
+          @user.role_id = Role.find_by(name: 'host').id
+          if @user.save
+            format.html { redirect_to @room, notice: 'Room was successfully created.' }
+            format.json { render :show, status: :created, location: @room }
+          else
+            redirect_to errors_path
+          end
+        else
+          format.html { redirect_to @room, notice: 'Room was successfully created.' }
+          format.json { render :show, status: :created, location: @room }
+        end
+
       else
-        format.html { render :new }
+        redirect_to errors_path
+        # format.html { render :new }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
